@@ -1,17 +1,43 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import org.openqa.selenium.By;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+import java.util.concurrent.ThreadLocalRandom;
+
+
+public class Main {
+
+    public static By buttonAddCustomer = (By.cssSelector(".btn.btn-lg.tab"));
+    public static By postCodee = (By.cssSelector("div.form-group:nth-of-type(3)>input.ng-invalid-required"));
+    public static By firstName = (By.cssSelector(".ng-untouched.ng-invalid.ng-invalid-required"));
+
+    public static String generateRandomPostCode() {
+        long randomNum = ThreadLocalRandom.current().nextLong(1000000000L, 10000000000L);
+        return String.valueOf(randomNum);
+    }
+
+    public static String generateNameFromPostCode(String postCode) {
+        return convertNumbersToLetters(postCode);
+    }
+
+    private static String convertNumbersToLetters(String input) {
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < input.length(); i += 2) {
+            String twoDigit = input.substring(i, Math.min(i + 2, input.length()));
+            int number = Integer.parseInt(twoDigit);
+            char letter = convertNumberToLetter(number);
+            result.append(letter);
         }
+
+        return result.toString();
+    }
+
+    private static char convertNumberToLetter(int number) {
+        int adjustedNumber = number % 26;
+        return (char) ('a' + adjustedNumber);
     }
 }
+
+
+
