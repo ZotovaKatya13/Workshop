@@ -41,6 +41,43 @@ public class Main {
         int adjustedNumber = number % 26;
         return (char) ('a' + adjustedNumber);
     }
+     public class CustomerUtils {
+
+        // Метод для получения списка имен клиентов
+        public static List<String> getCustomerNames(List<WebElement> customerRows) {
+            return customerRows.stream()
+                    .map(row -> row.findElement(Main.columnsNameCustomer).getText())
+                    .collect(Collectors.toList());
+        }
+
+        // Метод для вычисления средней длины имен
+        public static OptionalDouble calculateAverageNameLength(List<String> customerNames) {
+            return customerNames.stream()
+                    .map(String::length)
+                    .mapToInt(Integer::intValue)
+                    .average();
+        }
+
+        // Метод для нахождения имени с длиной, ближайшей к среднему
+        public static String findClosestNameToAverage(List<String> customerNames, double averageLength) {
+            return customerNames.stream()
+                    .min((name1, name2) -> {
+                        double diff1 = Math.abs(name1.length() - averageLength);
+                        double diff2 = Math.abs(name2.length() - averageLength);
+                        return Double.compare(diff1, diff2);
+                    }).orElse(null);
+        }
+
+        // Метод для удаления клиента по имени
+        public static void deleteCustomerByName(List<WebElement> customerRows, List<String> customerNames, String closestName) {
+            if (closestName != null) {
+                int indexToRemove = customerNames.indexOf(closestName);
+                if (indexToRemove != -1) { // Проверка на существование индекса
+                    customerRows.get(indexToRemove).findElement(Main.buttonDelete).click();
+                }
+            }
+        }
+        }
 }
 
 
