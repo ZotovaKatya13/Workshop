@@ -13,6 +13,7 @@ public class Main {
     public static By customers = (By.cssSelector(".btn.btn-lg.tab:nth-of-type(3)"));
     public static By listAllCustomer = (By.cssSelector(".table tbody tr"));
     public static By columnsNameCustomer = (By.cssSelector("td:nth-child(1)"));
+    public static By buttonDelete = (By.cssSelector("button.btn-danger"));
 
     public static String generateRandomPostCode() {
         long randomNum = ThreadLocalRandom.current().nextLong(1000000000L, 10000000000L);
