@@ -52,7 +52,7 @@ public class checkList {
         // Получаем список всех клиентов из таблицы
         List<WebElement> customerRows = driver.findElements(Main.listAllCustomer);
         List<String> customerNames = customerRows.stream()
-                .map(row -> row.findElement(By.cssSelector("td:nth-child(1)")).getText())
+                .map(row -> row.findElement(Main.columnsNameCustomer).getText())
                 .collect(Collectors.toList());
 
         // Вычисляем длины имен и среднее арифметическое
