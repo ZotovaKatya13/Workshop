@@ -50,7 +50,7 @@ public class checkList {
         driver.findElement(Main.customers).click();
 
         // Получаем список всех клиентов из таблицы
-        List<WebElement> customerRows = driver.findElements(By.cssSelector("table tbody tr"));
+        List<WebElement> customerRows = driver.findElements(Main.listAllCustomer);
         List<String> customerNames = customerRows.stream()
                 .map(row -> row.findElement(By.cssSelector("td:nth-child(1)")).getText())
                 .collect(Collectors.toList());
