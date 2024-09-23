@@ -1,11 +1,11 @@
-
 import org.example.Main;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -46,24 +46,8 @@ public class checkList {
         String generatedName = Main.generateNameFromPostCode(postCode);
         driver.findElement(Main.firstName).sendKeys(generatedName);
 
-        String lastNameGenerated = Main.generatedString();
-        driver.findElement(Main.lastName).sendKeys(lastNameGenerated);
-
-        driver.findElement(Main.button).click();
-
-
-        try {
-
-            Alert alert = driver.switchTo().alert();
-            // Принять алерт
-            alert.accept();
-        } catch (
-                NoAlertPresentException e) {
-            System.out.println("Алерт не найден.");
-        }
-
         // Переходим в раздел клиентов
-        driver.findElement(Main.customer).click();
+        driver.findElement(Main.customers).click();
 
         // Получаем список всех клиентов из таблицы
         List<WebElement> customerRows = driver.findElements(By.cssSelector("table tbody tr"));
@@ -71,7 +55,7 @@ public class checkList {
                 .map(row -> row.findElement(By.cssSelector("td:nth-child(1)")).getText())
                 .collect(Collectors.toList());
 
-
+        // Вычисляем длины имен и среднее арифметическое
         List<Integer> nameLengths = customerNames.stream()
                 .map(String::length)
                 .collect(Collectors.toList());
@@ -98,7 +82,6 @@ public class checkList {
                 customerRows.get(indexToRemove).findElement(By.cssSelector("button.btn-danger")).click();
             }
         }
+
     }
-}
-
-
+        }

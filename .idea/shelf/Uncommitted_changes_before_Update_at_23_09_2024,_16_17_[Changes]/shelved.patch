@@ -1,0 +1,294 @@
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n    <modelVersion>4.0.0</modelVersion>\n\n    <groupId>org.example</groupId>\n    <artifactId>TestCase</artifactId>\n    <version>1.0-SNAPSHOT</version>\n    <build>\n        <plugins>\n            <plugin>\n                <groupId>org.apache.maven.plugins</groupId>\n                <artifactId>maven-compiler-plugin</artifactId>\n                <configuration>\n                    <source>10</source>\n                    <target>10</target>\n                </configuration>\n            </plugin>\n        </plugins>\n    </build>\n    <properties>\n        <maven.compiler.source>22</maven.compiler.source>\n        <maven.compiler.target>22</maven.compiler.target>\n        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\n    </properties>\n\n    <dependencies>\n        <dependency>\n            <groupId>junit</groupId>\n            <artifactId>junit</artifactId>\n            <version>4.13</version>\n            <scope>test</scope>\n        </dependency>\n\n        <dependency>\n            <groupId>org.seleniumhq.selenium</groupId>\n            <artifactId>selenium-java</artifactId>\n            <version>3.141.59</version>\n        </dependency>\n\n       \n\n    </dependencies>\n\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision 643be659574dd885d3b7367b25be18069d0ffc0d)
++++ b/pom.xml	(date 1726998705456)
+@@ -39,7 +39,11 @@
+             <version>3.141.59</version>
+         </dependency>
+ 
+-       
++        <dependency>
++            <groupId>com.github.javafaker</groupId>
++            <artifactId>javafaker</artifactId>
++            <version>1.0.2</version>
++        </dependency>
+ 
+     </dependencies>
+ 
+Index: src/main/java/org/example/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\n\nimport org.openqa.selenium.By;\n\nimport java.util.concurrent.ThreadLocalRandom;\n\n\npublic class Main {\n\n    public static By buttonAddCustomer = (By.cssSelector(\".btn.btn-lg.tab\"));\n    public static By postCodee = (By.cssSelector(\"div.form-group:nth-of-type(3)>input.ng-invalid-required\"));\n    public static By firstName = (By.cssSelector(\".ng-untouched.ng-invalid.ng-invalid-required\"));\n\n    public static String generateRandomPostCode() {\n        long randomNum = ThreadLocalRandom.current().nextLong(1000000000L, 10000000000L);\n        return String.valueOf(randomNum);\n    }\n\n    public static String generateNameFromPostCode(String postCode) {\n        return convertNumbersToLetters(postCode);\n    }\n\n    private static String convertNumbersToLetters(String input) {\n        StringBuilder result = new StringBuilder();\n\n        for (int i = 0; i < input.length(); i += 2) {\n            String twoDigit = input.substring(i, Math.min(i + 2, input.length()));\n            int number = Integer.parseInt(twoDigit);\n            char letter = convertNumberToLetter(number);\n            result.append(letter);\n        }\n\n        return result.toString();\n    }\n\n    private static char convertNumberToLetter(int number) {\n        int adjustedNumber = number % 26;\n        return (char) ('a' + adjustedNumber);\n    }\n}\n\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/Main.java b/src/main/java/org/example/Main.java
+--- a/src/main/java/org/example/Main.java	(revision 643be659574dd885d3b7367b25be18069d0ffc0d)
++++ b/src/main/java/org/example/Main.java	(date 1727002130128)
+@@ -1,5 +1,6 @@
+ package org.example;
+ 
++import com.github.javafaker.Faker;
+ import org.openqa.selenium.By;
+ 
+ import java.util.concurrent.ThreadLocalRandom;
+@@ -10,6 +11,9 @@
+     public static By buttonAddCustomer = (By.cssSelector(".btn.btn-lg.tab"));
+     public static By postCodee = (By.cssSelector("div.form-group:nth-of-type(3)>input.ng-invalid-required"));
+     public static By firstName = (By.cssSelector(".ng-untouched.ng-invalid.ng-invalid-required"));
++    public static By button = (By.cssSelector(".btn.btn-default"));
++    public static By lastName = (By.cssSelector("div.form-group:nth-of-type(2)>input.ng-invalid-required"));
++    public static By customer = (By.cssSelector(".btn.btn-lg.tab:nth-of-type(3)"));
+ 
+     public static String generateRandomPostCode() {
+         long randomNum = ThreadLocalRandom.current().nextLong(1000000000L, 10000000000L);
+@@ -33,11 +37,27 @@
+         return result.toString();
+     }
+ 
++
+     private static char convertNumberToLetter(int number) {
+         int adjustedNumber = number % 26;
+         return (char) ('a' + adjustedNumber);
+     }
++
++
++    public static String generatedString() {
++
++        Faker faker = new Faker();
++
++        // Генерируем строку из 5 заглавных букв
++        String generatedString = faker.regexify("[a-z]{5}");
++
++        // Выводим сгенерированную строку
++        //  System.out.println("Сгенерированная строка: " + generatedString);
++        return generatedString;
++    }
+ }
++
++
+ 
+ 
+ 
+Index: src/test/java/test.java
+===================================================================
+diff --git a/src/test/java/test.java b/src/test/java/test.java
+deleted file mode 100644
+--- a/src/test/java/test.java	(revision 643be659574dd885d3b7367b25be18069d0ffc0d)
++++ /dev/null	(revision 643be659574dd885d3b7367b25be18069d0ffc0d)
+@@ -1,4 +0,0 @@
+-package PACKAGE_NAME;
+-
+-public class test {
+-}
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\n  <component name=\"MavenProjectsManager\">\n    <option name=\"originalFiles\">\n      <list>\n        <option value=\"$PROJECT_DIR$/pom.xml\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_22\" default=\"true\" project-jdk-name=\"openjdk-22\" project-jdk-type=\"JavaSDK\">\n    <output url=\"file://$PROJECT_DIR$/out\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 643be659574dd885d3b7367b25be18069d0ffc0d)
++++ b/.idea/misc.xml	(date 1726589145184)
+@@ -8,7 +8,7 @@
+       </list>
+     </option>
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_22" default="true" project-jdk-name="openjdk-22" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"13522ded-c42c-4140-af59-50d21b3461c1\" name=\"Changes\" comment=\"\">\n      <change beforePath=\"$PROJECT_DIR$/pom.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/pom.xml\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"ProjectColorInfo\"><![CDATA[{\n  \"associatedIndex\": 3\n}]]></component>\n  <component name=\"ProjectId\" id=\"2mCcxr5W6XiJ8CFiz9qNnuf5IV6\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"kotlin-language-version-configured\": \"true\",\n    \"nodejs_package_manager_path\": \"npm\",\n    \"onboarding.tips.debug.path\": \"/Users/ekaterina/IdeaProjects/TestCase/src/main/java/org/example/Main.java\",\n    \"vue.rearranger.settings.migration\": \"true\"\n  }\n}]]></component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142\" />\n        <option value=\"bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"13522ded-c42c-4140-af59-50d21b3461c1\" name=\"Changes\" comment=\"\" />\n      <created>1726584247365</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1726584247365</updated>\n    </task>\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"XDebuggerManager\">\n    <breakpoint-manager>\n      <breakpoints>\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\n          <url>file://$PROJECT_DIR$/src/main/java/org/example/Main.java</url>\n          <line>13</line>\n          <option name=\"timeStamp\" value=\"1\" />\n        </line-breakpoint>\n      </breakpoints>\n    </breakpoint-manager>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 643be659574dd885d3b7367b25be18069d0ffc0d)
++++ b/.idea/workspace.xml	(date 1727093847634)
+@@ -4,14 +4,41 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="13522ded-c42c-4140-af59-50d21b3461c1" name="Changes" comment="">
++    <list default="true" id="13522ded-c42c-4140-af59-50d21b3461c1" name="Changes" comment="commit">
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/test/java/checkList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/checkList.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/test/java/test.java" beforeDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+     <option name="LAST_RESOLUTION" value="IGNORE" />
+   </component>
++  <component name="FileTemplateManagerImpl">
++    <option name="RECENT_TEMPLATES">
++      <list>
++        <option value="Class" />
++      </list>
++    </option>
++  </component>
++  <component name="Git.Settings">
++    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++  </component>
++  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
++  "lastFilter": {
++    "state": "OPEN",
++    "assignee": "ZotovaKatya13"
++  }
++}]]></component>
++  <component name="GithubPullRequestsUISettings"><![CDATA[{
++  "selectedUrlAndAccountId": {
++    "url": "https://github.com/ZotovaKatya13/Workshop.git",
++    "accountId": "bc1edeb9-d912-4eb1-b2aa-150dda40a9c1"
++  }
++}]]></component>
+   <component name="ProjectColorInfo"><![CDATA[{
+   "associatedIndex": 3
+ }]]></component>
+@@ -23,13 +50,64 @@
+   </component>
+   <component name="PropertiesComponent"><![CDATA[{
+   "keyToString": {
++    "JUnit.checkList.addCustomer.executor": "Run",
++    "JUnit.checkList.checkList1.executor": "Run",
++    "JUnit.checkList.testPostCodeAndFirstName.executor": "Run",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "git-widget-placeholder": "main",
+     "kotlin-language-version-configured": "true",
++    "node.js.detected.package.eslint": "true",
++    "node.js.detected.package.tslint": "true",
++    "node.js.selected.package.eslint": "(autodetect)",
++    "node.js.selected.package.tslint": "(autodetect)",
+     "nodejs_package_manager_path": "npm",
+     "onboarding.tips.debug.path": "/Users/ekaterina/IdeaProjects/TestCase/src/main/java/org/example/Main.java",
++    "project.structure.last.edited": "Project",
++    "project.structure.proportion": "0.15",
++    "project.structure.side.proportion": "0.2",
+     "vue.rearranger.settings.migration": "true"
+   }
+ }]]></component>
++  <component name="RunManager" selected="JUnit.checkList.addCustomer">
++    <configuration name="checkList.addCustomer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
++      <module name="TestCase" />
++      <option name="PACKAGE_NAME" value="" />
++      <option name="MAIN_CLASS_NAME" value="checkList" />
++      <option name="METHOD_NAME" value="addCustomer" />
++      <option name="TEST_OBJECT" value="method" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <configuration name="checkList.checkList1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
++      <module name="TestCase" />
++      <option name="PACKAGE_NAME" value="" />
++      <option name="MAIN_CLASS_NAME" value="checkList" />
++      <option name="METHOD_NAME" value="checkList1" />
++      <option name="TEST_OBJECT" value="method" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <configuration name="checkList.testPostCodeAndFirstName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
++      <module name="TestCase" />
++      <option name="PACKAGE_NAME" value="" />
++      <option name="MAIN_CLASS_NAME" value="checkList" />
++      <option name="METHOD_NAME" value="testPostCodeAndFirstName" />
++      <option name="TEST_OBJECT" value="method" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <recent_temporary>
++      <list>
++        <item itemvalue="JUnit.checkList.addCustomer" />
++        <item itemvalue="JUnit.checkList.testPostCodeAndFirstName" />
++        <item itemvalue="JUnit.checkList.checkList1" />
++      </list>
++    </recent_temporary>
++  </component>
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+@@ -46,21 +124,55 @@
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+       <updated>1726584247365</updated>
++      <workItem from="1726584248377" duration="54946000" />
++    </task>
++    <task id="LOCAL-00001" summary="well done">
++      <option name="closed" value="true" />
++      <created>1726838506292</created>
++      <option name="number" value="00001" />
++      <option name="presentableId" value="LOCAL-00001" />
++      <option name="project" value="LOCAL" />
++      <updated>1726838506292</updated>
++    </task>
++    <task id="LOCAL-00002" summary="well done">
++      <option name="closed" value="true" />
++      <created>1726838616157</created>
++      <option name="number" value="00002" />
++      <option name="presentableId" value="LOCAL-00002" />
++      <option name="project" value="LOCAL" />
++      <updated>1726838616157</updated>
++    </task>
++    <task id="LOCAL-00003" summary="commit">
++      <option name="closed" value="true" />
++      <created>1727093642095</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1727093642095</updated>
+     </task>
++    <option name="localTasksCounter" value="4" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+     <option name="version" value="3" />
+   </component>
+-  <component name="XDebuggerManager">
+-    <breakpoint-manager>
+-      <breakpoints>
+-        <line-breakpoint enabled="true" type="java-line">
+-          <url>file://$PROJECT_DIR$/src/main/java/org/example/Main.java</url>
+-          <line>13</line>
+-          <option name="timeStamp" value="1" />
+-        </line-breakpoint>
+-      </breakpoints>
+-    </breakpoint-manager>
++  <component name="UnknownFeatures">
++    <option featureType="dependencySupport" implementationName="java:org.seleniumhq.selenium:selenium-java" />
++  </component>
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State />
++          </value>
++        </entry>
++      </map>
++    </option>
++  </component>
++  <component name="VcsManagerConfiguration">
++    <MESSAGE value="well done" />
++    <MESSAGE value="commit" />
++    <option name="LAST_COMMIT_MESSAGE" value="commit" />
+   </component>
+ </project>
+\ No newline at end of file
