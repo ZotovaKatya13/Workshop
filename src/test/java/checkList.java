@@ -47,36 +47,20 @@ public class checkList {
         driver.findElement(Main.customers).click();
 
         // Получаем список всех клиентов из таблицы
-        List<WebElement> customerRows = driver.findElements(By.cssSelector("table tbody tr"));
-        List<String> customerNames = customerRows.stream()
-                .map(row -> row.findElement(By.cssSelector("td:nth-child(1)")).getText())
-                .collect(Collectors.toList());
+        List<WebElement> customerRows = driver.findElements(Main.listAllCustomer);
+        List<String> customerNames = Main.CustomerUtils.getCustomerNames(customerRows);
 
-        // Вычисляем длины имен и среднее арифметическое
-        List<Integer> nameLengths = customerNames.stream()
-                .map(String::length)
-                .collect(Collectors.toList());
-
-        OptionalDouble averageLength = nameLengths.stream()
-                .mapToInt(Integer::intValue)
-                .average();
+// Вычисляем среднюю длину имен
+        OptionalDouble averageLength = Main.CustomerUtils.calculateAverageNameLength(customerNames);
 
         if (averageLength.isPresent()) {
             double avg = averageLength.getAsDouble();
 
             // Находим имя с длиной, ближайшей к среднему
-            String closestName = customerNames.stream()
-                    .min((name1, name2) -> {
-                        double diff1 = Math.abs(name1.length() - avg);
-                        double diff2 = Math.abs(name2.length() - avg);
-                        return Double.compare(diff1, diff2);
-                    }).orElse(null);
+            String closestName = Main.CustomerUtils.findClosestNameToAverage(customerNames, avg);
 
             // Удаляем клиента с найденным именем
-            if (closestName != null) {
-                // Нажимаем на кнопку удаления для соответствующей строки
-                int indexToRemove = customerNames.indexOf(closestName);
-                customerRows.get(indexToRemove).findElement(By.cssSelector("button.btn-danger")).click();
+            Main.CustomerUtils.deleteCustomerByName(customerRows, customerNames, closestName);
             }
         }
     }
