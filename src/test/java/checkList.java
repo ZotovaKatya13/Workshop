@@ -79,7 +79,7 @@ public class checkList {
             if (closestName != null) {
                 // Нажимаем на кнопку удаления для соответствующей строки
                 int indexToRemove = customerNames.indexOf(closestName);
-                customerRows.get(indexToRemove).findElement(By.cssSelector("button.btn-danger")).click();
+                customerRows.get(indexToRemove).findElement(Main.buttonDelete).click();
             }
         }
 
