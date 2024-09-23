@@ -71,7 +71,7 @@ public class checkList {
                 .map(row -> row.findElement(By.cssSelector("td:nth-child(1)")).getText())
                 .collect(Collectors.toList());
 
-        // Вычисляем длины имен и среднее арифметическое
+
         List<Integer> nameLengths = customerNames.stream()
                 .map(String::length)
                 .collect(Collectors.toList());
