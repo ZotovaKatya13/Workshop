@@ -1,5 +1,6 @@
 
-import org.example.Main;
+
+import org.example.RandomStringGenerator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +10,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
 import java.util.Map;
+import java.util.OptionalDouble;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -34,34 +37,34 @@ public class checkList {
     @Test
     public void addCustomer() {
         driver.get("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/manager");
-        wait.until(ExpectedConditions.presenceOfElementLocated(Main.buttonAddCustomer));
-        driver.findElement(Main.buttonAddCustomer).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(RandomStringGenerator.buttonAddCustomer));
+        driver.findElement(RandomStringGenerator.buttonAddCustomer).click();
 
-        String postCode = Main.generateRandomPostCode();
-        wait.until(ExpectedConditions.presenceOfElementLocated(Main.postCodee));
-        driver.findElement(Main.postCodee).sendKeys(postCode);
+        String postCode = RandomStringGenerator.generateRandomPostCode();
+        wait.until(ExpectedConditions.presenceOfElementLocated(RandomStringGenerator.postCodee));
+        driver.findElement(RandomStringGenerator.postCodee).sendKeys(postCode);
 
-        String generatedName = Main.generateNameFromPostCode(postCode);
-        driver.findElement(Main.firstName).sendKeys(generatedName);
+        String generatedName = RandomStringGenerator.generateNameFromPostCode(postCode);
+        driver.findElement(RandomStringGenerator.firstName).sendKeys(generatedName);
          // Переходим в раздел клиентов
-        driver.findElement(Main.customers).click();
+        driver.findElement(RandomStringGenerator.customers).click();
 
         // Получаем список всех клиентов из таблицы
-        List<WebElement> customerRows = driver.findElements(Main.listAllCustomer);
-        List<String> customerNames = Main.CustomerUtils.getCustomerNames(customerRows);
+        List<WebElement> customerRows = driver.findElements(RandomStringGenerator.listAllCustomer);
+        List<String> customerNames = RandomStringGenerator.CustomerUtils.getCustomerNames(customerRows);
 
 // Вычисляем среднюю длину имен
-        OptionalDouble averageLength = Main.CustomerUtils.calculateAverageNameLength(customerNames);
+        OptionalDouble averageLength = RandomStringGenerator.CustomerUtils.calculateAverageNameLength(customerNames);
 
         if (averageLength.isPresent()) {
             double avg = averageLength.getAsDouble();
 
             // Находим имя с длиной, ближайшей к среднему
-            String closestName = Main.CustomerUtils.findClosestNameToAverage(customerNames, avg);
+            String closestName = RandomStringGenerator.CustomerUtils.findClosestNameToAverage(customerNames, avg);
 
             // Удаляем клиента с найденным именем
-            Main.CustomerUtils.deleteCustomerByName(customerRows, customerNames, closestName);
+            RandomStringGenerator.CustomerUtils.deleteCustomerByName(customerRows, customerNames, closestName);
             }
         }
     }
-}
+
