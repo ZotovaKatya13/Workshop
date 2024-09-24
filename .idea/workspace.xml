@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13522ded-c42c-4140-af59-50d21b3461c1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/RandomStringGenerator .java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/RandomStringGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/checkList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/checkList.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,18 +16,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "ZotovaKatya13"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ZotovaKatya13&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/ZotovaKatya13/Workshop.git",
-    "accountId": "bc1edeb9-d912-4eb1-b2aa-150dda40a9c1"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ZotovaKatya13/Workshop.git&quot;,
+    &quot;accountId&quot;: &quot;bc1edeb9-d912-4eb1-b2aa-150dda40a9c1&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -45,7 +41,7 @@
   "keyToString": {
     "JUnit.checkList.addCustomer.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "stage",
     "kotlin-language-version-configured": "true",
     "last_directory_selection": "/Users/ekaterina/IdeaProjects/Workshop/src/main/java/org/example",
     "node.js.detected.package.eslint": "true",
@@ -104,6 +100,7 @@
       <option name="presentableId" value="Default" />
       <updated>1726584247365</updated>
       <workItem from="1727160324896" duration="916000" />
+      <workItem from="1727164454375" duration="892000" />
     </task>
     <servers />
   </component>
